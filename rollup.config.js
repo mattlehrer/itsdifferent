@@ -6,8 +6,11 @@ import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import dotenv from 'dotenv';
 
 const mode = process.env.NODE_ENV;
+dotenv.config();
+
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
@@ -20,7 +23,9 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': true,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.env.CONTENTFUL_SPACE_ID': process.env.CONTENTFUL_SPACE_ID,
+        'process.env.CONTENTFUL_ACCESS_TOKEN': process.env.CONTENTFUL_ACCESS_TOKEN,
 			}),
 			svelte({
 				dev,
@@ -64,7 +69,9 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': false,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.env.CONTENTFUL_SPACE_ID': process.env.CONTENTFUL_SPACE_ID,
+        'process.env.CONTENTFUL_ACCESS_TOKEN': process.env.CONTENTFUL_ACCESS_TOKEN,
 			}),
 			svelte({
 				generate: 'ssr',

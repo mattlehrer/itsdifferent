@@ -1,0 +1,8 @@
+node_modules
+coverage
+build
+public
+static
+__sapper__
+cypress
+bundle.css
