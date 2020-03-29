@@ -1,20 +1,20 @@
 <script context="module">
-	export async function preload({ params, query }) {
+	// export async function preload({ params, query }) {
 		// the `slug` parameter is available because
 		// this file is called [slug].svelte
-		const res = await this.fetch(`classes/${params.slug}.json`);
-		const data = await res.json();
+		// const res = await this.fetch(`classes/${params.slug}.json`);
+		// const data = await res.json();
 
-		if (res.status === 200) {
-			return { post: data };
-		} else {
-			this.error(res.status, data.message);
-		}
-	}
+		// if (res.status === 200) {
+		// 	return { post: data };
+		// } else {
+		// 	this.error(res.status, data.message);
+		// }
+	// }
 </script>
 
 <script>
-	export let post;
+	// export let post;
 </script>
 
 <style>
@@ -26,7 +26,7 @@
 		so we have to use the :global(...) modifier to target
 		all elements inside .content
 	*/
-	.content :global(h2) {
+	/* .content :global(h2) {
 		font-size: 1.4em;
 		font-weight: 500;
 	}
@@ -50,10 +50,10 @@
 
 	.content :global(li) {
 		margin: 0 0 0.5em 0;
-	}
+	} */
 </style>
 
-<svelte:head>
+<!-- <svelte:head>
 	<title>{post.title}</title>
 </svelte:head>
 
@@ -63,4 +63,4 @@
   {post.days}
   {post.time}
 	{@html post.html}
-</div>
+</div> -->
