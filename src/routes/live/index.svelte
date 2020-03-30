@@ -1,7 +1,6 @@
 <script context="module">
   export function preload({ params, query }) {
 		return this.fetch(`live.json`).then(r => r.json()).then(days => {
-      // console.log(days);
 			return { days };
 		});
 	}
@@ -73,8 +72,6 @@
 <svelte:head>
 	<title>Live Classes</title>
 </svelte:head>
-
-<!-- <svelte:window on:click={tagClick}/> -->
 
 <h1 class='is-size-3'>Live Class Schedule</h1>
 
