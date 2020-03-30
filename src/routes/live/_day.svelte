@@ -38,13 +38,9 @@
   .timeslot {
     border-bottom: 1px solid grey;
   }
-
-  /* .hidden {
-    visibility: hidden;
-  } */
 </style>
 
-<h2 class='is-size-4'>{day}</h2>
+<h2 class='is-size-4 title'>{day}</h2>
 <ul>
   {#each times as time}
     {#if time.liveClasses.some(cls => cls.fields.tags.some(t => $tagStore[t])) }
