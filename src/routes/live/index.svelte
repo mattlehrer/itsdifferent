@@ -8,6 +8,9 @@
 </script>
 
 <script>
+  import { onMount } from 'svelte';
+  import moment from 'moment';
+  import * as animateScroll from 'svelte-scrollto';
   import Day from './_day.svelte';
   import tagStore from './_tags.js';
   export let days;
@@ -55,6 +58,10 @@
     }
     console.log($tagStore);
   }
+
+  onMount(() => {
+    animateScroll.scrollTo({element: `#${moment().format('dddd')}`});
+  });
 </script>
 
 <style>
@@ -78,5 +85,7 @@
 </div>
 
 {#each Object.keys(days) as day}
-  <Day {day} times={days[day]} on:tag={tagCapture} />
+  <div id={day}>
+    <Day {day} times={days[day]} on:tag={tagCapture} />
+  </div>
 {/each}
