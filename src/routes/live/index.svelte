@@ -8,7 +8,8 @@
 </script>
 
 <script>
-  import Day from './_day.svelte'
+  import Day from './_day.svelte';
+  import tagStore from './_tags.js';
   export let days;
 
   let tagSet = new Set();
@@ -19,28 +20,40 @@
       }
     }
   }
-  let tagIsActive = {};
   for (const tag of tagSet) {
-    tagIsActive[tag] = true;
+    tagStore.addTag(tag);
   }
 
   function tagClick(e) {
     if (tagSet.has(this.innerText)) {
-      tagIsActive[this.innerText] = !tagIsActive[this.innerText];
-      console.log(tagIsActive)
+      tagStore.update(ts => {
+        ts[this.innerText] = !ts[this.innerText];
+        // if all are false now, set all to true
+        if ([...tagSet].every(t => !ts[t])) {
+          for (const tag of tagSet) {
+            ts[tag] = true;
+          }
+        }
+        return ts;
+      });
     }
   }
 
-  function tagCapture({detail}) {
-    // console.log(detail);
+  function tagCapture({ detail }) {
     for (const tag of tagSet) {
       if (tag === detail) {
-        tagIsActive[tag] = true;
+        tagStore.update(ts => {
+          ts[tag] = true;
+          return ts;
+        });
       } else {
-        tagIsActive[tag] = false;
+        tagStore.update(ts => {
+          ts[tag] = false;
+          return ts;
+        });
       }
     }
-    console.log(tagIsActive);
+    console.log($tagStore);
   }
 </script>
 
@@ -60,7 +73,7 @@
 
 <div class="buttons">
   {#each [...tagSet] as tag}
-    <button data="{tag}" class="button is-light" on:click={tagClick}>{tag}</button>
+    <button data="{tag}" class="button is-light {$tagStore[tag] ? 'is-inverted' : ''}" on:click={tagClick}>{tag}</button>
   {/each}
 </div>
 

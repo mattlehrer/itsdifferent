@@ -3,7 +3,17 @@
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
-
+  function formatDescription(content) {
+    return content.map(c => {
+      if (c.nodeType === 'text') {
+        return c.value;
+      } else if (c.nodeType === 'hyperlink') {
+        return `<a href="${c.data.uri}">${formatDescription(c.content)}</a>`;
+      }
+      console.error(c);
+      return '?';
+    }).join('');
+  }
 </script>
 
 <style>
@@ -45,7 +55,7 @@
     <div class='column logo-column is-3'><img class='class-logo' src={data.image.fields.file.url} alt={data.image.fields.title} /></div>
     <div class="column">
       <div class='name is-size-4'>{data.name}</div>
-      <div class='description'>{@html data.description.content[0].content[0].value}</div>
+      <div class='description'>{@html formatDescription(data.description.content[0].content)}</div>
     </div>
   </div>
 </a>
