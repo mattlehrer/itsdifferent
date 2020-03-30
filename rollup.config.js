@@ -3,6 +3,7 @@ import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import svelte from 'rollup-plugin-svelte';
 import babel from 'rollup-plugin-babel';
+import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
@@ -27,7 +28,7 @@ export default {
         'process.env.CONTENTFUL_SPACE_ID': process.env.CONTENTFUL_SPACE_ID,
         'process.env.CONTENTFUL_ACCESS_TOKEN': process.env.CONTENTFUL_ACCESS_TOKEN,
 			}),
-			svelte({
+      svelte({
 				dev,
 				hydratable: true,
 				emitCss: true
@@ -37,11 +38,15 @@ export default {
 				dedupe: ['svelte']
 			}),
 			commonjs(),
+      json(),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
 				runtimeHelpers: true,
-				exclude: ['node_modules/@babel/**'],
+				exclude: [
+          'node_modules/**',
+          '**/*.json',
+        ],
 				presets: [
 					['@babel/preset-env', {
 						targets: '> 0.25%, not dead'
