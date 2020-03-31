@@ -32,6 +32,7 @@
   .class-logo {
     width: auto;
     height: auto;
+    max-height: 200px;
   }
 
   .name {
