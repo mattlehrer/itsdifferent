@@ -14,14 +14,16 @@
   import tagStore from './_tags.js';
   export let days;
 
-  let tagSet = new Set();
+  let allTags = [];
   for (const day in days) {
     for (const time of days[day]) {
       for (const cls of time.liveClasses) {
-        tagSet.add(...cls.fields.tags);
+        allTags = [...allTags, ...cls.fields.tags];
       }
     }
   }
+  const tagSet = new Set(allTags);
+  console.log(tagSet);
   for (const tag of tagSet) {
     tagStore.addTag(tag);
   }
