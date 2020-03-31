@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "itsdifferent",
+  "description": "It's Different This Time - static site with video content for the quanrantine life.",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
