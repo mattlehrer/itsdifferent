@@ -23,7 +23,7 @@
     }
   }
   const tagSet = new Set(allTags);
-  console.log(tagSet);
+  // console.log(tagSet);
   for (const tag of tagSet) {
     tagStore.addTag(tag);
   }
@@ -31,11 +31,17 @@
   function tagClick(e) {
     if (tagSet.has(this.innerText)) {
       tagStore.update(ts => {
-        ts[this.innerText] = !ts[this.innerText];
-        // if all are false now, set all to true
-        if ([...tagSet].every(t => !ts[t])) {
+        if ([...tagSet].every(t => ts[t])) {
           for (const tag of tagSet) {
-            ts[tag] = true;
+            if (tag !== this.innerText) ts[tag] = false;
+          }
+        } else {
+          ts[this.innerText] = !ts[this.innerText];
+          // if all are false now, set all to true
+          if ([...tagSet].every(t => !ts[t])) {
+            for (const tag of tagSet) {
+              ts[tag] = true;
+            }
           }
         }
         return ts;
