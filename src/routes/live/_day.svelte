@@ -23,6 +23,8 @@
     outputTime.add(-1 * (new Date().getTimezoneOffset()), 'minutes');
     return `${outputTime.format('LT')} ${moment.tz.zone(moment.tz.guess()).abbr(moment())}`;
   }
+
+  // console.log(times)
 </script>
 
 <style>
