@@ -40,6 +40,10 @@
   .timeslot {
     border-bottom: 1px solid grey;
   }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
 </style>
 
 <h2 class='is-size-4 title'>{day}</h2>
