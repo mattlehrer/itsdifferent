@@ -1,4 +1,5 @@
 const contentful = require('contentful');
+const _ = require('lodash');
 
 const client = contentful.createClient({
   space: 'process.env.CONTENTFUL_SPACE_ID',
@@ -43,15 +44,13 @@ export async function get(req, res) {
   let dataByDay = {};
   for (const day of days) {
     dataByDay[day] = allData[day.toLowerCase()];
-    const classesToAdd = ['Saturday', 'Sunday'].includes(day)
+    const timeClassPairsToAdd = ['Saturday', 'Sunday'].includes(day)
       ? allData['sevenDays']
       : [...allData['weekdays'], ...allData['sevenDays']];
-    for (const pair of classesToAdd) {
-      const existingTimes = dataByDay[day].map(time => time.time);
-      if (dataByDay[day].length && pair.time in existingTimes) {
-        dataByDay[day][existingTimes.indexOf(pair.time)].liveClasses.push(
-          ...pair.liveClasses,
-        );
+    for (const pair of timeClassPairsToAdd) {
+      const existingTimes = dataByDay[day].map(p => p.time);
+      if (existingTimes.includes(pair.time)) {
+        dataByDay[day][existingTimes.indexOf(pair.time)].liveClasses = _.unionWith(dataByDay[day][existingTimes.indexOf(pair.time)].liveClasses, pair.liveClasses, _.isEqual);
       } else {
         dataByDay[day].push(pair);
       }
