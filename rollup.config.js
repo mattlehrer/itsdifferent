@@ -34,7 +34,8 @@ export default {
 				emitCss: true
 			}),
 			resolve({
-				browser: true,
+        browser: true,
+        preferBuiltins: false,
 				dedupe: ['svelte']
 			}),
 			commonjs(),

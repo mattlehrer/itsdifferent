@@ -1,6 +1,7 @@
 <script>
   export let data;
-	import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
+  import * as psl from 'psl';
 
 	const dispatch = createEventDispatcher();
   function formatDescription(content) {
@@ -61,7 +62,10 @@
   </div>
 </a>
 <div class='columns is-mobile'>
-  <div class='column is-offset-3 tags'>
+  <div class="column is-3">
+    <button class="button tag is-info is-light is-inverted">{psl.parse(new URL(data.url).hostname).sld}</button>
+  </div>
+  <div class='column tags'>
     {#each data.tags as tag}
       <button class="button tag is-light" on:click="{() => dispatch('tag', {tag})}">{tag}</button>
     {/each}
