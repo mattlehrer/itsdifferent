@@ -85,7 +85,7 @@
 
 <div class="buttons">
   {#each [...tagSet] as tag}
-    <button data="{tag}" class="button is-light {$tagStore[tag] ? 'is-inverted' : ''}" on:click={tagClick}>{tag}</button>
+    <button data="{tag}" class="button tag is-light {$tagStore[tag] ? 'is-inverted' : ''}" on:click={tagClick}>{tag}</button>
   {/each}
 </div>
 
