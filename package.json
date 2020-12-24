@@ -17,7 +17,7 @@
   "dependencies": {
     "bulma": "^0.8.1",
     "compression": "^1.7.1",
-    "contentful": "^7.14.0",
+    "contentful": "^8.0.3",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
